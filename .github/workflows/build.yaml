@@ -1,0 +1,21 @@
+name: Build
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install cosmocc
+        run: |
+          curl -LO https://cosmo.zip/pub/cosmocc/cosmocc.zip
+          unzip cosmocc.zip || true
+      - run: env PATH=bin:$PATH make
+      - uses: actions/upload-artifact@v4
+        with:
+          name: bbazelisk
+          path: bbazelisk
