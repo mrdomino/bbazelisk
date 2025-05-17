@@ -9,6 +9,4 @@ if [ aarch64 = "$arch" ]; then
 	arch=arm64
 fi
 BAZELISK="$(dirname "$0")/bazelisk-${sys}-${arch}"
-if [ -x "$BAZELISK" ]; then
-	exec "$BAZELISK" "$@"
-fi
+exec "$BAZELISK" "$@"
