@@ -1,0 +1,14 @@
+#!/bin/sh
+set -eu
+if command -v bazelisk >/dev/null 2>&1; then
+	exec bazelisk "$@"
+fi
+sys=$(uname -s | tr '[:upper:]' '[:lower:]')
+arch=$(uname -m)
+if [ aarch64 = "$arch" ]; then
+	arch=arm64
+fi
+BAZELISK="$(dirname "$0")/bazelisk-${sys}-${arch}"
+if [ -x "$BAZELISK" ]; then
+	exec "$BAZELISK" "$@"
+fi
