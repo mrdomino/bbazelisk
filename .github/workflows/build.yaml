@@ -9,12 +9,11 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - uses: mrdomino/setup-cosmocc@v1
+        with:
+          version: 4.0.2
       - uses: actions/checkout@v4
-      - name: Install cosmocc
-        run: |
-          curl -LO https://cosmo.zip/pub/cosmocc/cosmocc.zip
-          unzip cosmocc.zip || true
-      - run: env PATH=bin:$PATH make
+      - run: make
       - uses: actions/upload-artifact@v4
         with:
           name: bbazelisk
